@@ -1,3 +1,4 @@
+import type * as Config from "@effect/io/Config"
 import type * as Effect from "@effect/io/Effect"
 
 /** @internal */
@@ -13,8 +14,14 @@ export type MergeRecord<K, H> = {
 
 /** @internal */
 export type NonEmptyArrayEffect = [Effect.Effect<any, any, any>, ...Array<Effect.Effect<any, any, any>>]
+/** @internal */
+export type NonEmptyArrayConfig = [Config.Config<any>, ...Array<Config.Config<any>>]
 
 /** @internal */
-export type TupleA<T extends NonEmptyArrayEffect> = {
+export type TupleEffect<T extends NonEmptyArrayEffect> = {
   [K in keyof T]: [T[K]] extends [Effect.Effect<any, any, infer A>] ? A : never
+}
+/** @internal */
+export type TupleConfig<T extends NonEmptyArrayConfig> = {
+  [K in keyof T]: [T[K]] extends [Config.Config<infer A>] ? A : never
 }
